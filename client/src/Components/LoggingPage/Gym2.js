@@ -1,5 +1,5 @@
-import ExerciseList from "./ExerciseList.js";
-import FilterList from "./FilterList.js";
+import ExerciseList from "../GymPage/ExerciseList.js";
+import FilterList from "../GymPage//FilterList.js";
 import { useState, useEffect } from "react";
 import React from "react";
 

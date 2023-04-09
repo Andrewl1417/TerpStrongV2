@@ -5,9 +5,8 @@ import { useState } from "react"
 
 const Home = () => {
     return (
-        <div class="px-4">
+        <div className="px-4">
           <Week/>
-          {/* {<Daily/>} */}
         </div>
     );
 };

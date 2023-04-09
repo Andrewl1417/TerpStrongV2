@@ -1,24 +1,60 @@
-// import { useState } from "react";
+import { useState, useEffect } from "react";
+import Gym from "../GymPage/Gym";
+import ExerciseList from "../GymPage/ExerciseList";
+import Exercise from "../GymPage/Exercise";
 
-// const Daily = () => {
+const Daily = ({ day, onFinish }) => {
+  const [page, setPage] = useState(1);
 
-//     const [exercises, setExercises] = useState([])
+  const [finish, setFinish] = useState(false);
 
-//     const addExercise = (ex) => {
-//         setExercises([...exercises, ex])
-//     }
+  const [exercises, setExercises] = useState([]);
 
-//   return (
-//     <div>
-//         <h1>Monday</h1>
-//         <button className="btn btn-danger">
-//             Add Exercise
-//         </button>
-//         {/* {exercises.map((ex) => (
-//                 <Exercise key={ex.id} exercise={ex} />
-//             ))} */}
-//     </div>
-//   )
-// }
+  const updateExercises = (exercise) => {
+    setExercises([...exercises, exercise]);
+    setPage(1);
+  };
 
-// export default Daily
+  const showExerciseDetails = (exercise) => {
+    return <Exercise key={exercise.id} exercise={exercise} />;
+  };
+
+  return (
+    <div>
+      <h1>{day}</h1>
+      {page === 1 && !finish && (
+        <button className="btn btn-primary" onClick={() => setPage(2)}>
+          Add Exercise
+        </button>
+      )}
+      {page === 2 && <Gym onClick={updateExercises} />}
+      {exercises.isEmpty ? (
+        <h2>No Exercises</h2>
+      ) : (
+        exercises.map((exercise) => showExerciseDetails(exercise))
+      )}
+      {!finish && (
+        <>
+          <button
+            className="btn btn-primary mx-3"
+            onClick={() => {
+              setFinish(true);
+            }}
+          >
+            Finish Logging
+          </button>
+          <button className="btn btn-danger" onClick={() => onFinish()}>
+            Cancel
+          </button>
+        </>
+      )}
+      {finish && (
+        <button className="btn btn-danger" onClick={() => onFinish()}>
+          Go Back to Home Page
+        </button>
+      )}
+    </div>
+  );
+};
+
+export default Daily;
